@@ -45,7 +45,7 @@ end;
 
 @testset "File User Path" begin
     const obj_name = "eg2file"
-    const file_name = joinpath(@__FILE__, "eg2file.txt")
+    const file_name = joinpath(dirname(@__FILE__), "eg2file.txt")
     open(file_name, "w") do fp
         println(fp, """
         Call me Ishmael. Some years ago- never mind how long precisely- 
@@ -62,7 +62,7 @@ end
 
 @testset "File User Path with PseudoDir" begin
     const obj_name = "eg2file"
-    const file_name = joinpath(@__FILE__, "eg3file.txt")
+    const file_name = joinpath(dirname(@__FILE__), "eg3file.txt")
     open(file_name, "w") do fp
         println(fp, """
         There now is your insular city of the Manhattoes,
