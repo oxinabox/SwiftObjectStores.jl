@@ -1,3 +1,4 @@
+export validate_file
 
 "Note this reads out the streams to their ends"
 function validate_equal!(a_stream::IO, b_stream::IO; buffer_len=4*1024)
@@ -7,7 +8,7 @@ function validate_equal!(a_stream::IO, b_stream::IO; buffer_len=4*1024)
     while(true)
         a_len_read = readbytes!(a_stream, a_buf)
         b_len_read = readbytes!(b_stream, b_buf)
-        if a_buf != b_buf
+        if a_buf[1:a_len_read] != b_buf[1:b_len_read]
             return false
         end
         @assert(a_len_read == b_len_read)
@@ -23,10 +24,10 @@ Downloads a file file from Swift and checks if it the same as the local file giv
 Note: this is a comprehense check. Normally you would prefer to just check Hash's.
 This method is for testing checking that the hash checking method works.
 """
-function validate_file(serv, container::String, objectname::String, fname::String)
-    get_file(serv, container, objectname; verbose=true) do rfp
+function validate_file(serv, container::String, objectname::String, fname::String; verbose::Bool=false)
+    get_file(serv, container, objectname; verbose=verbose) do rfp
         open(fname, "r") do lfp
-            validate_equal!(rfp, lfp) || error("$fname is not identical to $container : $objectname")
+            validate_equal!(rfp, lfp)
         end
     end
 end

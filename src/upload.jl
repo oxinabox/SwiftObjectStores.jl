@@ -2,12 +2,13 @@
 #####
 #Uploaders
 
+export put_file, put_jld
 
 """
 `container` can either be be just a container name, or a pseudofolder path
 """
 function put_file(serv, container::String, name::String, fname::String; verbose::Bool=false)
-    uo = service.SwiftUploadObject(fname, object_name=name)
+    uo = service[:SwiftUploadObject](fname, object_name=name)
     async_put = serv[:upload](container, [uo]) 
     responses = collect(async_put)
     if verbose

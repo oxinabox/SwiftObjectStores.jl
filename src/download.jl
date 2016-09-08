@@ -2,6 +2,8 @@
 # Downloaders
 #
 
+export get_file, get_file!, get_jld
+
 """Download from swift, writing the result to the file given by `fname`.
     `container` can either be be just a container name, or a pseudofolder path    
 """
@@ -32,12 +34,12 @@ function get_file(func::Function, serv, container::String, name::String; verbose
     end
 end
 
-"""Download a JLD file from Swift. `data` is a list of fieldnames to read."""
-function get_jld(serv, container::String, name::String, verbose::Bool = false, data...)
+"""Download a JLD file from Swift. `dataname` is a list of fieldnames to read."""
+function get_jld(serv, container::String, name::String, datanames...; verbose::Bool=false)
     mktempdir() do tdir
         fname = joinpath(tdir, name)
         get_file!(serv, container, name, fname; verbose=verbose)
-        JLD.load(File(format"JLD", fname), data...)
+        JLD.load(File(format"JLD", fname), datanames...)
     end
 end
 
