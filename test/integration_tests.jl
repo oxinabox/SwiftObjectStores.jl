@@ -2,7 +2,11 @@ using SwiftObjectStores
 using SwiftObjectStores.stat
 using Base.Test
 using JLD
-import PyCall.PyError
+import PyCall: PyError, @pyimport
+
+@pyimport warnings
+warnings.filterwarnings("ignore")
+
 
 const serv = SwiftService(
 	# Note that we will read ENV["OS_PASSWORD"] and ENV["OS_USERNAME"]
