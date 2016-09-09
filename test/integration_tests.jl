@@ -9,17 +9,13 @@ warnings.filterwarnings("ignore")
 
 
 const serv = SwiftService(
-	# Note that we will read ENV["OS_PASSWORD"] and ENV["OS_USERNAME"]
-	# CI needs to set those
-    auth_url =  "https://keystone.rc.nectar.org.au:5000/v2.0/",
-    tenant_name = "UWA_SEMANTIC_VECTORS", 
-    #It is a little scary that I am testing in the same Tanant as I am using for my actual research
+	# Note that we will read settings from Enviroment Variables CI needs to set those
 )
 const container_name = "swift.jl-testing"
 
 if haskey(SwiftObjectStores.list(serv), container_name)
     warn("Past test left mess. Deleting " * container_name * " for use in testing")
-    delete(serv,container_name)    
+    delete(serv,container_name)
 end
 
 
