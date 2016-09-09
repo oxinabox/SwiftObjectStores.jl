@@ -5,13 +5,8 @@ using JLD
 using FileIO
 
 
-const keystone = PyNULL()
-const service = PyNULL()
+const service = pyimport("swiftclient.service")
 
-function __init__()
-	copy!(keystone, pyimport_conda("keystoneauth1","python-keystoneclient")) #Even if not used, is required for swift
-    copy!(service, pyimport_conda("swiftclient.service", "python-swiftclient"))
-end
 
 include("service_options.jl")
 include("responses.jl")
