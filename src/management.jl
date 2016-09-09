@@ -12,6 +12,7 @@ end
 
 function list(serv)
 	response = serv[:list]() |> first |> Dict
+	@show response
 	Dict(d["name"] => d for d in response["listing"])
 end
 

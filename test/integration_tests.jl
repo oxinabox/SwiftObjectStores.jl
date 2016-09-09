@@ -11,9 +11,12 @@ warnings.filterwarnings("ignore")
 const serv = SwiftService(
 	# Note that we will read settings from Enviroment Variables CI needs to set those
 )
-const container_name = "swift.jl-testing"
 
-if haskey(SwiftObjectStores.list(serv), container_name)
+const verdata = "-$(VERSION.major)-$(VERSION.minor)-$(VERSION.patch)"
+const osdata = string(ccall(:jl_get_UNAME, Any, ()))
+const container_name = "swift.jl-testing-"*osdata*verdata
+
+if haskey(list(serv), container_name)
     warn("Past test left mess. Deleting " * container_name * " for use in testing")
     delete(serv,container_name)
 end
