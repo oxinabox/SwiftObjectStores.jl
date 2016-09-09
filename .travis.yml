@@ -1,4 +1,9 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
+# Note: Because this repo has Integration tests, 
+# It must be limitted to 1 Concurrent build at a time in the Travis Settings
+# Also in the Travis Settings the environment variables for
+# OS_USERNAME and OS_PASSWORD must be set
+
 language: julia
 os:
   - linux
@@ -6,6 +11,10 @@ os:
 julia:
   - 0.5
   - nightly
+
+env:
+  - PYTHON=""
+
 notifications:
   email: false
 # uncomment the following lines to override the default test script
