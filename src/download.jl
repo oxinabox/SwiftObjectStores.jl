@@ -5,16 +5,13 @@
 export get_file, get_file!, get_jld
 
 """Download from swift, writing the result to the file given by `fname`.
-    `container` can either be be just a container name, or a pseudofolder path    
+	`container` is just the container name, pseudofolder should be part of object name
 """
 function get_file!(serv, container::String, name::String, fname::String; verbose::Bool=false)
-    container_parts = split(strip(container, '/'), "/")
-    container = container_parts[1]
-    if length(container_parts) > 1
-        psedudofolder = join(container_parts[2:end], "/")
-        name = psedudofolder*"/"*name
-    end
-
+	if '/' in container || '\\' in container
+		error("No slashes allowed in container name (got $contacontainer). Pseudodir should be part of the object name.")
+	end
+		
     async_get = serv[:download](container, [name], Dict("out_file" => fname))
     responses=collect(async_get)
     if verbose
@@ -28,7 +25,7 @@ end
 """Read IO stream, from Swift, and call func, on it, returning the result """
 function get_file(func::Function, serv, container::String, name::String; verbose::Bool=false)
     mktempdir() do tdir
-        fname = joinpath(tdir, name)
+        fname = joinpath(tdir, "lastdownswift")
         get_file!(serv, container, name, fname; verbose=verbose)    
         open(func, fname,"r")
     end
@@ -37,7 +34,7 @@ end
 """Download a JLD file from Swift. `dataname` is a list of fieldnames to read."""
 function get_jld(serv, container::String, name::String, datanames...; verbose::Bool=false)
     mktempdir() do tdir
-        fname = joinpath(tdir, name)
+        fname = joinpath(tdir, "lastdownswift.jld")
         get_file!(serv, container, name, fname; verbose=verbose)
         JLD.load(File(format"JLD", fname), datanames...)
     end

@@ -80,9 +80,11 @@ end
         """)
     end
     
-    @test put_file(serv, container_name*"/psubdir", obj_name, file_name) != nothing
-    @test validate_file(serv, container_name*"/psubdir", obj_name, file_name) 
+    @test put_file(serv, container_name, "/psubdir/"*obj_name, file_name) != nothing
+    @test validate_file(serv, container_name, "psubdir/"*obj_name, file_name) 
 end
+
+
 
 
 immutable Mt
