@@ -22,7 +22,7 @@ end
 """Note: this reads out the `fp` IO to the end"""
 function put_file(serv, container::String, name::String, fp::IO; verbose::Bool=false)
     mktempdir() do tdir
-        fname = joinpath(tdir, name)
+        fname = joinpath(tdir, "lastswiftupload")
         open(fname,"w") do fp_inner
             write(fp_inner, readbytes(fp))
         end
@@ -33,7 +33,7 @@ end
 """Save data as a a JLD file, and upload to Swift"""
 function put_jld(serv, container::String, name::String; data...)
     mktempdir() do tdir
-        fname = joinpath(tdir, name)
+        fname = joinpath(tdir, "lastswiftupload.jl")
         save(File(format"JLD", fname), Base.Flatten(((string(name), val) for (name,val) in data))...)
         put_file(serv, container, name, fname)
     end
