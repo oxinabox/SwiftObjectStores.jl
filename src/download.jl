@@ -9,7 +9,7 @@ export get_file, get_file!, get_jld
 """
 function get_file!(serv, container::String, name::String, fname::String; verbose::Bool=false)
 	if '/' in container || '\\' in container
-		error("No slashes allowed in container name (got $contacontainer). Pseudodir should be part of the object name.")
+		error("No slashes allowed in container name (got $container). Pseudodir should be part of the object name.")
 	end
 		
     async_get = serv[:download](container, [name], Dict("out_file" => fname))
