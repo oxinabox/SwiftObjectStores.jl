@@ -1,7 +1,7 @@
 #############
 # Management: getting info, deleting containers etc
-
-export list, stat, delete
+import Base.stat
+export list, delete
 
 stat(serv) = serv[:stat]() |> Dict
 stat(serv, container::String) = serv[:stat](container) |> Dict
