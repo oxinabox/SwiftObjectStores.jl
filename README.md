@@ -20,7 +20,7 @@ The package will work fine without this -- and depending on your OS may effectiv
 
 
 As is the Open Stack fasion, the package will default to reading your various username and password from enviroment variables.
-If you want to make use of this feature, you should  `source ~/openstack.rc`  or similar, before starting julia (Or Jupyter).
+If you want to make use of this feature, you should  `source ~/openrc.sh` or similar, before starting julia (Or Jupyter).
 
 
 
