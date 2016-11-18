@@ -34,7 +34,7 @@ end
     
     eg_text = "The Julia Language: A fresh approach to technical computing. λ=x²"
     @test put_file(serv, container_name, obj_name, IOBuffer(eg_text)) != nothing
-    get_file(serv, container_name, obj_name) do fp
+    get_stream(serv, container_name, obj_name) do fp
         @test readstring(fp) == eg_text
     end
     
@@ -47,25 +47,33 @@ end
 end;
 
 
+
+
 @testset "File User Path" begin
     const obj_name = "eg2file"
     const file_name = joinpath(dirname(@__FILE__), "eg2file.txt")
-    open(file_name, "w") do fp
-        println(fp, """
+    const eg_text= """
         Call me Ishmael. Some years ago- never mind how long precisely- 
         having little or no money in my purse, and nothing particular to interest me on shore,
         I thought I would sail about a little and see the watery part of the world. 
-        It is a way I have of driving off the spleen and regulating the circulation. 
-        """)
-    end
+        It is a way I have of driving off the spleen and regulating the circulation."""
+	
+	open(file_name, "w") do fp
+        print(fp, eg_text)
+	end
     
     @test put_file(serv, container_name, obj_name, file_name) != nothing
-    @test validate_file(serv, container_name, obj_name, file_name) 
+    @test validate_file(serv, container_name, obj_name, file_name) #validate it as file
+
+	@test get_file(serv, container_name, obj_name) do fn #Check reading it as a file
+		open(readstring, fn, "r") == eg_text
+	end
+
 end
 
 
 @testset "File User Path with PseudoDir" begin
-    const obj_name = "eg2file"
+    const obj_name = "eg3file"
     const file_name = joinpath(dirname(@__FILE__), "eg3file.txt")
     open(file_name, "w") do fp
         println(fp, """

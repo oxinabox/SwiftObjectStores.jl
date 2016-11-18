@@ -24,7 +24,7 @@ function put_file(serv, container::String, name::String, fp::IO; verbose::Bool=f
     mktempdir() do tdir
         fname = joinpath(tdir, "lastswiftupload")
         open(fname,"w") do fp_inner
-            write(fp_inner, readbytes(fp))
+            write(fp_inner, read(fp))
         end
         put_file(serv, container, name, fname; verbose=verbose)
     end

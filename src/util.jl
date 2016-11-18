@@ -25,7 +25,7 @@ Note: this is a comprehense check. Normally you would prefer to just check Hash'
 This method is for testing checking that the hash checking method works.
 """
 function validate_file(serv, container::String, objectname::String, fname::String; verbose::Bool=false)
-    get_file(serv, container, objectname; verbose=verbose) do rfp
+    get_stream(serv, container, objectname; verbose=verbose) do rfp
         open(fname, "r") do lfp
             validate_equal!(rfp, lfp)
         end
