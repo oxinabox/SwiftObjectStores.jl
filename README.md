@@ -88,8 +88,25 @@ julia> data = get_file(serv, "ResearchData", "simulated/sim-100000.RData") do fn
 end
 ```
 
+## Management:
 
-## Listing Containers
+### Deleting object, and containers
+
+Delete an object in a container:
+
+```julia
+julia> delete(serv, "testing-out-swift-container", "usefulobject")
+```
+
+Delete the container itself:
+
+```julia
+julia> delete(serv, "testing-out-swift-container")
+```
+
+
+
+### Listing Containers
 
 the `list` command gives a dictionary, where the keys are the names of the containers, and the values contain information about each.
 
