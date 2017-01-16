@@ -5,9 +5,9 @@
 export put_file, put_jld
 
 """
-`container` can either be be just a container name, or a pseudofolder path
+Upload a file to the swift object store.
 """
-function put_file(serv, container::String, name::String, fname::String; verbose::Bool=false)
+function put_file(serv, container::String, name::String, fname::String=name; verbose::Bool=false)
     uo = service[:SwiftUploadObject](fname, object_name=name)
     async_put = serv[:upload](container, [uo]) 
     responses = collect(async_put)
