@@ -7,9 +7,13 @@ export put_file, put_jld
 """
 Upload a file to the swift object store.
 """
-function put_file(serv, container::String, name::String, fname::String=name; verbose::Bool=false)
+function put_file(serv::PyObject,
+                  container::AbstractString,
+                  name::AbstractString,
+                  fname::AbstractString=name;
+                  verbose::Bool=false)
     uo = service[:SwiftUploadObject](fname, object_name=name)
-    async_put = serv[:upload](container, [uo]) 
+    async_put = serv[:upload](container, [uo])
     responses = collect(async_put)
     if verbose
         show_responses(responses)
@@ -20,7 +24,11 @@ function put_file(serv, container::String, name::String, fname::String=name; ver
 end
 
 """Note: this reads out the `fp` IO to the end"""
-function put_file(serv, container::String, name::String, fp::IO; verbose::Bool=false)
+function put_file(serv::PyObject,
+                  container::String,
+                  name::String,
+                  fp::IO;
+                  verbose::Bool=false)
     mktempdir() do tdir
         fname = joinpath(tdir, "lastswiftupload")
         open(fname,"w") do fp_inner
@@ -31,7 +39,10 @@ function put_file(serv, container::String, name::String, fp::IO; verbose::Bool=f
 end
 
 """Save data as a a JLD file, and upload to Swift"""
-function put_jld(serv, container::String, name::String; data...)
+function put_jld(serv::PyObject,
+                 container::String,
+                 name::String;
+                 data...)
     mktempdir() do tdir
         fname = joinpath(tdir, "lastswiftupload.jl")
         save(File(format"JLD", fname), Base.Flatten(((string(name), val) for (name,val) in data))...)
