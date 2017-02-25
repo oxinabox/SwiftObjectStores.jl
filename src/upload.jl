@@ -25,8 +25,8 @@ end
 
 """Note: this reads out the `fp` IO to the end"""
 function put_file(serv::PyObject,
-                  container::String,
-                  name::String,
+                  container::AbstractString,
+                  name::AbstractString,
                   fp::IO;
                   verbose::Bool=false)
     mktempdir() do tdir
@@ -40,8 +40,8 @@ end
 
 """Save data as a a JLD file, and upload to Swift"""
 function put_jld(serv::PyObject,
-                 container::String,
-                 name::String;
+                 container::AbstractString,
+                 name::AbstractString;
                  data...)
     mktempdir() do tdir
         fname = joinpath(tdir, "lastswiftupload.jl")

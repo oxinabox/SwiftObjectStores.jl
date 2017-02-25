@@ -24,7 +24,7 @@ Downloads a file file from Swift and checks if it the same as the local file giv
 Note: this is a comprehense check. Normally you would prefer to just check Hash's.
 This method is for testing checking that the hash checking method works.
 """
-function validate_file(serv::PyObject, container::String, objectname::String, fname::String; verbose::Bool=false)
+function validate_file(serv::PyObject, container::AbstractString, objectname::String, fname::String; verbose::Bool=false)
     get_stream(serv::PyObject, container, objectname; verbose=verbose) do rfp
         open(fname, "r") do lfp
             validate_equal!(rfp, lfp)

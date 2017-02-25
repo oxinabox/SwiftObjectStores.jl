@@ -8,10 +8,10 @@ Just like for the swift commandline client.
 	- Note that `segment_size` is in bytes -- so `1024^3` is 1Gb
 """
 function SwiftService(;auth_url = ENV["OS_AUTH_URL"],
-                        username::String = ENV["OS_USERNAME"],
-                        password::String = ENV["OS_PASSWORD"],
-                        tenant_name::String = ENV["OS_TENANT_NAME"],
-                        auth_version::String = "2",
+                        username::AbstractString = ENV["OS_USERNAME"],
+                        password::AbstractString = ENV["OS_PASSWORD"],
+                        tenant_name::AbstractString = ENV["OS_TENANT_NAME"],
+                        auth_version::AbstractString = "2",
                         segment_size::Integer = 1024^3, #1GB
                         segment_threads::Integer=24,
                         object_threads::Integer=24)

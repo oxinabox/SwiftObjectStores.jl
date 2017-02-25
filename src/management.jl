@@ -4,9 +4,9 @@ import Base.stat
 export list, delete
 
 stat(serv) = serv[:stat]() |> Dict
-stat(serv::PyObject, container::String) = serv[:stat](container) |> Dict
+stat(serv::PyObject, container::AbstractString) = serv[:stat](container) |> Dict
 
-function stat(serv::PyObject, container::String, object::String)
+function stat(serv::PyObject, container::AbstractString, object::String)
     serv[:stat](container, [object]) |> first
 end
 
@@ -15,15 +15,15 @@ function list(serv)
 	Dict(d["name"] => d for d in response["listing"])
 end
 
-list(serv::PyObject, container::String) = serv[:list](container) |> Dict
+list(serv::PyObject, container::AbstractString) = serv[:list](container) |> Dict
 
 
 
 ### Delete
 
-delete(serv::PyObject, container::String) = serv[:delete](container) |> collect
+delete(serv::PyObject, container::AbstractString) = serv[:delete](container) |> collect
 
-function delete(serv::PyObject, container::String, object::String)
+function delete(serv::PyObject, container::AbstractString, object::String)
     serv[:delete](container, [object]) |> first
 end
 
