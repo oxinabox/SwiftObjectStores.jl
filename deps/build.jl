@@ -4,8 +4,8 @@ using Conda
 
 if PyCall.conda
 	Conda.add("pip")
-	pip = joinpath(Conda.BINDIR, "pip")
-	run(`$pip install python-keystoneclient`)
+	pip = joinpath(Conda.SCRIPTDIR, "pip")
+    run(`$pip install python-keystoneclient`)
 	run(`$pip install python-swiftclient`)
 else
 	try
