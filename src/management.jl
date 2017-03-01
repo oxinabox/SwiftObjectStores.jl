@@ -3,14 +3,14 @@
 import Base.stat
 export list, delete
 
-stat(serv) = serv[:stat]() |> Dict
+stat(serv::PyObject) = serv[:stat]() |> Dict
 stat(serv::PyObject, container::AbstractString) = serv[:stat](container) |> Dict
 
 function stat(serv::PyObject, container::AbstractString, object::String)
     serv[:stat](container, [object]) |> first
 end
 
-function list(serv)
+function list(serv::PyObject)
 	response = serv[:list]() |> first |> Dict
 	Dict(d["name"] => d for d in response["listing"])
 end
