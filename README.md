@@ -18,9 +18,14 @@ It is thus desirable to ensure your `TMPDIR` is set to be on a RAM disk.
 In most modern unixen, this is done by adding `export TMPDIR=/dev/shm` to your `.bashrc` or similar.
 The package will work fine without this -- and depending on your OS may effectively use a RAM disk anyway.
 
+## Installation
 
-As is the Open Stack fasion, the package will default to reading your various username and password from enviroment variables.
-If you want to make use of this feature, you should  `source ~/openrc.sh` or similar, before starting julia (Or Jupyter).
+```julia
+Pkg.add("SwiftObjectStores")
+```
+
+This will install the package, and its python reqs, if you are using Conda for your python install.
+If you are not using Conda, the on screen instructions will tell you what is neeeded.
 
 
 
@@ -33,7 +38,8 @@ julia> using SwiftObjectStores
 julia> serv = SwiftService()
 ```
 This constructs the default server connection description.
-Reading the server URL, and your identity information from the enviroment variables.
+Reading the server URL, and your identity information from the enviroment variables, as is the Open Stack fasion.
+If you want to make use of this feature, you should  `source ~/openrc.sh` or similar, before starting julia.
 
 ## Using Storing and Retrieving arbitary data objects via JLD
 
