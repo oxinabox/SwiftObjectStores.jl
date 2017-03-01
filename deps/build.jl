@@ -6,7 +6,7 @@ if PyCall.conda
 	Conda.add("pip")
     
     #Debug ode, where *is* pip?
-    for (root, dirs, files) in walkdir(".")
+    for (root, dirs, files) in walkdir(Conda.PREFIX)
       println("Files in $root")
       for file in files
           println(joinpath(root, file)) # path to files
