@@ -1,4 +1,3 @@
-# constructor for the python object
 "Method to print the responses, for debug purposes"
 function show_responses(responses)
     local shown::Set
