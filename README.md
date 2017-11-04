@@ -1,10 +1,5 @@
 # SwiftObjectStores
 
-[![Build Status](https://travis-ci.org/oxinabox/SwiftObjectStores.jl.svg?branch=master)](https://travis-ci.org/oxinabox/SwiftObjectStores.jl)
-
-[![Coverage Status](https://coveralls.io/repos/oxinabox/SwiftObjectStores.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/oxinabox/SwiftObjectStores.jl?branch=master)
-
-[![codecov.io](http://codecov.io/github/oxinabox/SwiftObjectStores.jl/coverage.svg?branch=master)](http://codecov.io/github/oxinabox/SwiftObjectStores.jl?branch=master)
 
 >Swift is a highly available, distributed, eventually consistent object/blob store. Organizations can use Swift to store lots of data efficiently, safely, and cheaply.
 
@@ -17,6 +12,16 @@ The implementation makes significant uses of temporary files.
 It is thus desirable to ensure your `TMPDIR` is set to be on a RAM disk.
 In most modern unixen, this is done by adding `export TMPDIR=/dev/shm` to your `.bashrc` or similar.
 The package will work fine without this -- and depending on your OS may effectively use a RAM disk anyway.
+
+#### Notice:
+I no longer have free access to any swift object store service provider,
+so I can no longer perform the integration tests used for this package.
+As such my ability to maintain this package moving forward is limitted.
+
+In general, I have switched to mounting the object store as a file-system.
+E.g. with [svfs](https://github.com/ovh/svfs).
+While this has some pecularatities (e.g. running `ls` is expensive, so tab completion is slow),
+it is really quiet handly, and works well with julia code that has been written to expect paths to be provided as strings to a local filesystem.
 
 ## Installation
 
